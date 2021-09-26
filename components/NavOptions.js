@@ -3,6 +3,8 @@ import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { Icon } from "react-native-elements";
 import { useNavigation } from "@react-navigation/core";
+import { selectOrigin } from "../slices/navSlices.";
+import { useSelector } from "react-redux";
 
 const data = [
   {
@@ -21,6 +23,7 @@ const data = [
 
 const NavOptions = () => {
   const navigation = useNavigation();
+  const origin = useSelector(selectOrigin);
   return (
     <FlatList
       data={data}
@@ -31,8 +34,12 @@ const NavOptions = () => {
           <TouchableOpacity
             onPress={() => navigation.navigate(item.screen)}
             style={tw`p-2 pb-8 pt-4 bg-gray-200 m-2 w-40 h-60`}
+            // disabled={!origin} // disables till origin location is true
           >
-            <View>
+            <View
+            // style={tw`${!origin && "opacity-20"}`}
+            >
+              {/* this script at the top should be enabled when origin is sorted out with real data. */}
               <View style={tw`pl-4`}>
                 <Image
                   style={[
